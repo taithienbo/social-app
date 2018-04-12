@@ -3,9 +3,6 @@ package com.tbo.sn.service;
 import com.tbo.sn.domain.Entity;
 import com.tbo.sn.repository.AppRepository;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Common data capabilities across all domain types.
  * @author tai

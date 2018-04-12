@@ -1,12 +1,13 @@
 package com.tbo.sn.service;
 
+import com.tbo.sn.domain.node.Hobby;
+import com.tbo.sn.domain.node.School;
 import com.tbo.sn.repository.PersonRepository;
-import com.tbo.sn.domain.Person;
-import com.tbo.sn.domain.education.Education;
-import com.tbo.sn.domain.hobby.Hobby;
+import com.tbo.sn.domain.node.Person;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,26 +24,22 @@ public class PersonServiceImpl extends AppServiceImpl<Person,PersonRepository> i
     }
 
     @Override
-    public List<Person> findPeopleByEducation( Education education )
-    {
-        return getRepository().findPeopleByEducation( education );
-    }
-
-    @Override
-    public List<Person> findPeopleByAgeBetween(int startAge, int endAge)
-    {
-        return getRepository().findPeopleByAgeBetween( startAge, endAge );
-    }
-
-    @Override
     public List<Person> findPeopleByGender(String gender)
     {
         return getRepository().findPeopleByGender( gender );
     }
 
     @Override
-    public List<Person> findFriendsOfFriendsShareACommonHobby(Hobby hobby)
+    public List<Person> findPeopleByDobBetween( Date from, Date to )
     {
-        return getRepository().findFriendsOfFriendsShareACommonHobby( hobby );
+        return getRepository().findPeopleByDobBetween( from, to );
     }
+
+    @Override
+    public Iterable<Person> findPeopleToFollow( Long personId )
+    {
+        return getRepository().findPeopleWhoAttendSameSchoolAndShareSameHobbyToFollow( personId );
+    }
+
+
 }

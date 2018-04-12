@@ -3,8 +3,6 @@ package com.tbo.sn.service;
 import com.tbo.sn.domain.Entity;
 import com.tbo.sn.repository.AppRepository;
 
-import java.util.List;
-
 /**
  * @author tai
  * @since 3/24/18.

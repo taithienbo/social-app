@@ -5,17 +5,10 @@ import com.tbo.sn.dod.AppDataOnDemand;
 import com.tbo.sn.domain.Entity;
 import com.tbo.sn.repository.AppRepository;
 import com.tbo.sn.service.AppService;
-import org.junit.Before;
-import org.junit.Rule;
+import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 
-
-import org.neo4j.harness.junit.Neo4jRule;
-import org.neo4j.ogm.config.Configuration;
-import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.session.SessionFactory;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -53,5 +46,25 @@ public abstract class AppIntegrationTest<T extends Entity, R extends AppReposito
         T entity = dataOnDemand.getNewTransient();
         entity = service.save( entity );
         assertThat( entity.getId(), notNullValue());
+    }
+
+    public R getRepository()
+    {
+        return repository;
+    }
+
+    public S getService()
+    {
+        return service;
+    }
+
+    public D getDataOnDemand()
+    {
+        return dataOnDemand;
+    }
+
+    protected EnhancedRandom getEnhancedRandom()
+    {
+        return getDataOnDemand().getEnhancedRandomBuilder().build();
     }
 }

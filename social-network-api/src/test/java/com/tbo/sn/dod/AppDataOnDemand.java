@@ -16,8 +16,10 @@ public interface AppDataOnDemand<T extends Entity, R extends AppRepository<T>, S
 {
     T getNewTransient();
     T getNewPersisted();
-    Iterable<T> getManyNewTransient();
-    Iterable<T> getManyNewPersisted();
+    List<T> getManyNewTransient();
+    List<T> getManyNewTransient(int count);
+    List<T> getManyNewPersisted();
+    List<T> getManyNewPersisted(int count);
     List<String> getExcludedFields();
     R getRepository();
     S getService();

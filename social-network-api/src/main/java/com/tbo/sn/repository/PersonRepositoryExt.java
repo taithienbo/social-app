@@ -1,8 +1,8 @@
 package com.tbo.sn.repository;
 
-import com.tbo.sn.domain.Person;
-import com.tbo.sn.domain.education.Education;
-import com.tbo.sn.domain.hobby.Hobby;
+import com.tbo.sn.domain.node.Hobby;
+import com.tbo.sn.domain.node.Person;
+import com.tbo.sn.domain.node.School;
 
 import java.util.List;
 
@@ -16,6 +16,10 @@ import java.util.List;
  */
 public interface PersonRepositoryExt
 {
-    List<Person> findPeopleToFollowByEducationAndHobbies(List<Education> educationList, List<Hobby> hobbyList);
-    List<Person> findFriendsOfFriendsShareACommonHobby(Hobby hobby);
+    /**
+     * Find people who goes to the same school and share the same hobbies with the person with given id.
+     * @return list of people whom the person has not followed, who attend a same school and share same
+     * hobbies with the person.
+     */
+    Iterable<Person> findPeopleWhoAttendSameSchoolAndShareSameHobbyToFollow(Long personId);
 }

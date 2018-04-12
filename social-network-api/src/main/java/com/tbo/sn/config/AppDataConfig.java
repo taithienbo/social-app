@@ -5,13 +5,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import org.neo4j.ogm.config.ClasspathConfigurationSource;
 import org.neo4j.ogm.config.ConfigurationSource;
+import org.neo4j.ogm.session.Neo4jSession;
+import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
 /**
@@ -33,6 +34,12 @@ public class AppDataConfig
     {
         // with domain entity base package(s)
         return new SessionFactory( configuration, "com.tbo.sn.domain" );
+    }
+
+    @Bean
+    public Session session()
+    {
+        return sessionFactory().openSession();
     }
 
     @Bean

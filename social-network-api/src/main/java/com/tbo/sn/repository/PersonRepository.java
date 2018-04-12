@@ -1,11 +1,11 @@
 package com.tbo.sn.repository;
 
 
-import com.tbo.sn.domain.Person;
-import com.tbo.sn.domain.education.Education;
-import com.tbo.sn.domain.hobby.Hobby;
+import com.tbo.sn.domain.node.Person;
+import com.tbo.sn.domain.node.School;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +19,6 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends AppRepository<Person>, PersonRepositoryExt
 {
-    List<Person> findPeopleByEducation(Education education);
-    List<Person> findPeopleByAgeBetween(int startAge, int endAge);
     List<Person> findPeopleByGender(String gender);
+    List<Person> findPeopleByDobBetween(Date from, Date to);
 }

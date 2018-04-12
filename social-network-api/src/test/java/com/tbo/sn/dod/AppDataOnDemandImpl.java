@@ -2,13 +2,10 @@ package com.tbo.sn.dod;
 
 import com.google.common.collect.Lists;
 import com.tbo.sn.domain.Entity;
-import com.tbo.sn.domain.Person;
 import com.tbo.sn.repository.AppRepository;
 import com.tbo.sn.service.AppService;
 import com.tbo.sn.util.ReflectionUtil;
 import io.github.benas.randombeans.EnhancedRandomBuilder;
-import io.github.benas.randombeans.FieldDefinition;
-import io.github.benas.randombeans.FieldDefinitionBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 import java.util.ArrayList;
@@ -24,10 +21,8 @@ public class AppDataOnDemandImpl<T extends Entity, R extends AppRepository<T>, S
         AppDataOnDemand<T, R, S>
 {
 
-
     private R repository;
     private S service;
-
 
     public AppDataOnDemandImpl(R repository, S service)
     {
@@ -51,21 +46,39 @@ public class AppDataOnDemandImpl<T extends Entity, R extends AppRepository<T>, S
     }
 
     @Override
-    public Iterable getManyNewTransient()
+    public List getManyNewTransient()
     {
         int count = Math.max(2, getEnhancedRandomBuilder().build().nextInt(5));
+        return ( getManyNewTransient( count ) );
+    }
+
+    @Override
+    public List<T> getManyNewTransient( int count )
+    {
         List<T> entities = new ArrayList<>(  );
         for (int i = 0; i < count; i++)
         {
-            entities.add(getNewTransient());
+            entities.add( getNewTransient() );
         }
         return entities;
     }
 
     @Override
-    public Iterable getManyNewPersisted()
+    public List<T> getManyNewPersisted()
     {
-        return getService().saveAll(getManyNewTransient());
+        return Lists.newArrayList(getService().saveAll(getManyNewTransient()));
+    }
+
+    @Override
+    public List<T> getManyNewPersisted( int count )
+    {
+        List<T> entities = new ArrayList<>(  );
+        for (int i = 0; i < count; i++)
+        {
+            entities.add(getNewTransient());
+        }
+
+        return Lists.newArrayList( getService().saveAll(entities) );
     }
 
     @Override

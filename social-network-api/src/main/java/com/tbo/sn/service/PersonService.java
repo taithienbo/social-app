@@ -1,10 +1,11 @@
 package com.tbo.sn.service;
 
+import com.tbo.sn.domain.node.Hobby;
+import com.tbo.sn.domain.node.School;
 import com.tbo.sn.repository.PersonRepository;
-import com.tbo.sn.domain.Person;
-import com.tbo.sn.domain.education.Education;
-import com.tbo.sn.domain.hobby.Hobby;
+import com.tbo.sn.domain.node.Person;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,8 +15,7 @@ import java.util.List;
  */
 public interface PersonService extends AppService<Person,PersonRepository>
 {
-    List<Person> findPeopleByEducation(Education education);
-    List<Person> findPeopleByAgeBetween(int startAge, int endAge);
     List<Person> findPeopleByGender(String gender);
-    List<Person> findFriendsOfFriendsShareACommonHobby(Hobby hobby);
+    List<Person> findPeopleByDobBetween( Date from, Date to);
+    Iterable<Person> findPeopleToFollow( Long personId );
 }

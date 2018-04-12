@@ -2,8 +2,6 @@ dependencies {
     // ----- compile project dependencies ------
     compile project(':social-network-shared')
     // ----- compile dependencies ------
-    compile ('org.springframework.boot:spring-boot-starter-data-jpa')
-
 
     // ----- test compile dependencies -------
     testCompile 'io.github.benas:random-beans:' + this.properties["version.io.github.benas"]
