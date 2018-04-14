@@ -1,4 +1,6 @@
 rootProject.name = 'social-network'
-include 'social-network-shared'
+include 'social-network-shared:api'
+include 'social-network-shared:web'
 include 'social-network-api'
-
+include 'social-network-web'
+include 'social-network-web-int'

@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':social-network-shared:api')
+    compile 'ma.glasnost.orika:orika-core:' + this.properties["version.ma.glasnost.orika"]
+}

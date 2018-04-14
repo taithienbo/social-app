@@ -29,10 +29,9 @@ public class PersonDataOnDemand extends AppDataOnDemandImpl<Person,PersonReposit
     public EnhancedRandomBuilder getEnhancedRandomBuilder()
     {
         EnhancedRandomBuilder enhancedRandomBuilder =  super.getEnhancedRandomBuilder();
-        enhancedRandomBuilder.exclude( FieldDefinitionBuilder.field().get() ).exclude(
+        enhancedRandomBuilder.exclude(
                 FieldDefinitionBuilder.field().ofType( School.class ).get() )
-                .exclude( FieldDefinitionBuilder
-                .field().get() ).exclude( FieldDefinitionBuilder.field().ofType( Hobby.class ).get() ).exclude(
+                .exclude( FieldDefinitionBuilder.field().ofType( Hobby.class ).get() ).exclude(
                         FieldDefinitionBuilder.field().ofType( EducationAchievement.class ).get() );
         return enhancedRandomBuilder;
     }

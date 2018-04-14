@@ -6,6 +6,7 @@ import com.tbo.sn.domain.Entity;
 import com.tbo.sn.repository.AppRepository;
 import com.tbo.sn.service.AppService;
 import io.github.benas.randombeans.api.EnhancedRandom;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -16,7 +17,6 @@ import static org.hamcrest.Matchers.*;
  * @author tai
  * @since 3/24/18.
  */
-@ActiveProfiles("test")
 public abstract class AppIntegrationTest<T extends Entity, R extends AppRepository<T>, S extends AppService<T,R>, D
         extends
         AppDataOnDemand<T, R, S>> extends AppTest
@@ -38,6 +38,12 @@ public abstract class AppIntegrationTest<T extends Entity, R extends AppReposito
     public void setDataOnDemand( D dataOnDemand )
     {
         this.dataOnDemand = dataOnDemand;
+    }
+
+    @Before
+    public void setup()
+    {
+        getService().deleteAll();
     }
 
     @Test

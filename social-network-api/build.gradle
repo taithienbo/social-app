@@ -1,13 +1,18 @@
+apply plugin: "com.github.hauner.jarTest"
+
+
 dependencies {
     // ----- compile project dependencies ------
-    compile project(':social-network-shared')
+    compile project(':social-network-shared:api')
+    compile project(':social-network-shared:web')
     // ----- compile dependencies ------
 
     // ----- test compile dependencies -------
-    testCompile 'io.github.benas:random-beans:' + this.properties["version.io.github.benas"]
-    testCompile 'org.neo4j:neo4j-ogm-embedded-driver:' + this.properties["version.org.neo4j.ogm"]
-    testCompile 'org.neo4j:neo4j-ogm-test:' + this.properties["version.org.neo4j.ogm"]
-    testCompile 'org.neo4j.test:neo4j-harness:' + this.properties["version.org.neo4j.ogm"]
+    testCompile 'io.github.benas:random-beans'
+    testCompile 'org.neo4j:neo4j-ogm-embedded-driver'
+    testCompile 'org.neo4j:neo4j-ogm-test'
+    testCompile 'org.neo4j.test:neo4j-harness'
     testCompile ('org.springframework.boot:spring-boot-starter-test')
 }
+
 

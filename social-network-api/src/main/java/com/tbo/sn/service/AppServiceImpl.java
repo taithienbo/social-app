@@ -41,4 +41,10 @@ public class AppServiceImpl<T extends Entity, R extends AppRepository<T>> implem
     {
         return getRepository().saveAll(entities);
     }
+
+    @Override
+    public void deleteAll()
+    {
+        repository.deleteAll();
+    }
 }

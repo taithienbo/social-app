@@ -1,5 +1,3 @@
-
-
 buildscript {
     repositories {
         mavenCentral()
@@ -7,6 +5,10 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
     }
+}
+
+plugins {
+    id "com.github.hauner.jarTest" version '1.0.1' apply(false)
 }
 
 allprojects {
@@ -29,6 +31,17 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+        dependencies {
+            // compile dependencies
+            dependency 'ma.glasnost.orika:orika-core:' + this.properties["version.ma.glasnost.orika"]
+
+            // ----- test compile dependencies -------
+            dependency 'io.github.benas:random-beans:' + this.properties["version.io.github.benas"]
+            dependency 'org.neo4j:neo4j-ogm-embedded-driver:' + this.properties["version.org.neo4j.ogm"]
+            dependency 'org.neo4j:neo4j-ogm-test:' + this.properties["version.org.neo4j.ogm"]
+            dependency 'org.neo4j.test:neo4j-harness:' + this.properties["version.org.neo4j.ogm"]
+
         }
 
     }

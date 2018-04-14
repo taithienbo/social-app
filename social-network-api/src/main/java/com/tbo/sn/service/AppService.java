@@ -14,4 +14,5 @@ public interface AppService<T extends Entity, R extends AppRepository<T>>
     R getRepository();
     T save( T entity );
     Iterable<T> saveAll(Iterable<T> entities) ;
+    void deleteAll();
 }

@@ -1,0 +1,13 @@
+dependencies {
+    // ----- compile project dependencies ------
+    compile project(':social-network-api')
+    compile project(':social-network-shared:web')
+    // ----- compile dependencies ------
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    // ---- test compile dependencies ---
+    testCompile("junit:junit")
+    testCompile project(':social-network-api')
+    testCompile project (path: ':social-network-api', configuration: 'testArchives')
+
+}

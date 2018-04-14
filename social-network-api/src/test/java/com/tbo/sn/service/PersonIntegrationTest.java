@@ -3,6 +3,7 @@ package com.tbo.sn.service;
 import com.tbo.sn.config.AppIntegrationTest;
 import com.tbo.sn.constants.EducationAchievementField;
 import com.tbo.sn.constants.EducationAchievementType;
+import com.tbo.sn.constants.Gender;
 import com.tbo.sn.dod.PersonDataOnDemand;
 import com.tbo.sn.domain.node.Badminton;
 import com.tbo.sn.domain.node.EducationAchievement;
@@ -14,12 +15,17 @@ import com.tbo.sn.repository.PersonRepository;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 /**
@@ -113,7 +119,6 @@ public class PersonIntegrationTest extends AppIntegrationTest<Person,PersonRepos
         assertThat("List of peopleByGender cannot be null.", peopleByGender, notNullValue());
         assertThat("Size of peopleByGender list is not correct.", peopleByGender.size(), equalTo(
                 numOfExpectedResults ));
-
     }
 
     /**
@@ -141,4 +146,33 @@ public class PersonIntegrationTest extends AppIntegrationTest<Person,PersonRepos
         assertThat( "Size of peopleToFollow list is not correct.", peopleToFollow.size(), equalTo( people.size() -
                 1 ));
     }
+
+    /**
+     * @see PersonService#findPeopleByGenderAndAgeBetween(String, Integer, Integer, Pageable)
+     */
+    @Test
+    public void findPeopleByGenderAndAge()
+    {
+        // set up test data
+        List<Person> youngWomen = getDataOnDemand().getManyNewTransient();
+        int ageRangeBegin = 18;
+        int ageRangeEnd = 30;
+        Gender gender = Gender.FEMALE;
+        for ( Person person : youngWomen )
+        {
+            Calendar dob = Calendar.getInstance();
+            int age = getEnhancedRandom().nextInt( ageRangeEnd - ageRangeBegin + 1 ) + ageRangeBegin;
+            dob.set( Calendar.YEAR, dob.get(Calendar.YEAR) - age );
+            person.setDob( dob.getTime() );
+            person.setGender( gender.getGender() );
+        }
+        getService().saveAll( youngWomen );
+        // test and  verify
+        Page<Person> pageResult = getService().findPeopleByGenderAndAgeBetween( gender.getGender(), ageRangeBegin,
+                ageRangeEnd, PageRequest.of( 0, youngWomen.size()) );
+        assertThat( "PageResult cannot be null.", pageResult, notNullValue());
+        assertThat( "Number of result is not correct.", pageResult.getSize(), equalTo( youngWomen.size() ));
+    }
+
+
 }

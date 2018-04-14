@@ -1,0 +1,10 @@
+apply plugin: "com.github.hauner.jarTest"
+
+dependencies {
+    // ----- compile project dependencies ------
+    compile project(':social-network-web')
+
+    // ---- test compile dependencies ---
+    testCompile project (path: ':social-network-api', configuration: 'testArchives')
+
+}
